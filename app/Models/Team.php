@@ -13,18 +13,30 @@ class Team extends Model
 
     public function add($user)
     {
-       
+
         $this->preventTooManyUsers();
 
         $method = $user instanceof User ? 'save' : 'saveMany';
 
         return $this->members()->$method($user);
-        
+
         // if($user instanceof User){
         //     return $this->members()->save($user);
         // }
 
         // return $this->members()->saveMany($user);
+    }
+
+    public function removeMember($user_id)
+    {
+       
+        return $this->members()->get()->find($user_id)->delete();
+
+    }
+    public function removeAllMembers(){
+        
+       return $this->members()->delete();
+
     }
 
     public function members()
@@ -39,9 +51,8 @@ class Team extends Model
 
     public function preventTooManyUsers()
     {
-        if($this->count() >= $this->size){
+        if ($this->count() >= $this->size) {
             throw new \Exception('Ohh Error');
         }
     }
-
 }
