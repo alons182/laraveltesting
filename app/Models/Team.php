@@ -27,9 +27,21 @@ class Team extends Model
         // return $this->members()->saveMany($user);
     }
 
+    
+
     public function members()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function dissociate_members($user = null)
+    {
+        $method = $user != null ? 'dissociate' : 'dissociateMany';
+        if($method == 'dissociate' ){
+            return $this->members()->where(['id' => $user->id])->update(['team_id' => null]);
+        }else if($method == 'dissociateMany' ) {
+            return $this->members()->update(['team_id' => null]);
+        }
     }
 
     public function count()
