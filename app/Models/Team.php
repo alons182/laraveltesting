@@ -43,5 +43,26 @@ class Team extends Model
             throw new \Exception('Ohh Error');
         }
     }
+   
+    public function remover_miembro($user)
+    {
+   
+    return $this->members()->where('id','=',$user->id)->update(['Team_id'=>null]);
+   
 
-}
+    }
+
+    public function remover_miembros()
+    {
+    
+    
+    
+       return $this->members()->update(['team_id'=>null]);
+    
+       
+    }
+
+    }
+
+
+
