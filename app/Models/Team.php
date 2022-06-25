@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Team extends Model
 {
@@ -42,6 +43,25 @@ class Team extends Model
         if($this->count() >= $this->size){
             throw new \Exception('Ohh Error');
         }
+    }
+
+    public function remove($userRecibido, $teamId){
+
+        User::where('id', $userRecibido->id)->update(['team_id' => null]);
+
+        $team = User::where('team_id', $teamId)->get();
+        return $team->count();
+
+    }
+
+    public function removeAll($teamId){
+        foreach(User::all() as $user){
+            $user->update(['team_id' => null]);
+        }
+
+        $team = User::where('team_id', $teamId)->get();
+        return $team->count();
+        
     }
 
 }
