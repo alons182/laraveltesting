@@ -36,6 +36,7 @@ class Team extends Model
     {
         return $this->members()->count();
     }
+    
 
     public function preventTooManyUsers()
     {
