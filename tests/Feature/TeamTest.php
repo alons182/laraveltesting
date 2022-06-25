@@ -68,11 +68,10 @@ class TeamTest extends TestCase
         $team->add($user1);
         $team->add($user2);
         $team->add($user3);
-       
-        $this->assertEquals(3, $team->count());
-        $this->assertEquals(true, $team -> removeMember($user2->id));
-        $this->assertEquals(2, $team->count());
 
+        $this->assertEquals(3, $team->count());
+        $this->assertEquals(true, $team->removeMember($user2));
+        $this->assertEquals(2, $team->count());
     }
 
     /** @test */
@@ -80,12 +79,11 @@ class TeamTest extends TestCase
     {
         $team = Team::factory()->create(['size' => 5]);
 
-        $users = User::factory(5)->create(); 
+        $users = User::factory(5)->create();
 
         $team->add($users);
-
+ 
         $this->assertEquals(5, $team->count());
-        $this->assertEquals(true, $team->removeAllMembers());
         $this->assertEquals(0, $team->removeAllMembers());
     }
 }

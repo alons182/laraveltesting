@@ -27,16 +27,17 @@ class Team extends Model
         // return $this->members()->saveMany($user);
     }
 
-    public function removeMember($user_id)
+    public function removeMember($user)
     {
-       
-        return $this->members()->get()->find($user_id)->delete();
-
+        return $this->members()->where('id', '=', $user->id)->update(['team_id' => null]);
     }
-    public function removeAllMembers(){
-        
-       return $this->members()->delete();
+    public function removeAllMembers()
+    {
+        foreach ($this->members()->get() as $member) {
+          $this->members()->where('id', '=', $member->id)->update(['team_id' => null]);
+        }
 
+        return $this->count();
     }
 
     public function members()
