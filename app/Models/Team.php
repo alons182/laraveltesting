@@ -35,7 +35,7 @@ class Team extends Model
     public function count()
     {
         return $this->members()->count();
-    }
+    } 
 
     public function preventTooManyUsers()
     {
@@ -44,4 +44,13 @@ class Team extends Model
         }
     }
 
+    public function remove($user)
+    {
+        return $user -> delete();
+    }
+
+    public function removeAll()
+    {
+        $this->members()->delete();
+    }
 }
