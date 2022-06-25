@@ -14,7 +14,7 @@ class TeamTest extends TestCase
     
     
     /** @test */
-    public function un_equipo_puede_agregar_usuario()
+    public function El_equipo_puede_agregar_un_usuario()
     {
         $team = Team::factory()->create();
         $user = User::factory()->create();
@@ -27,7 +27,7 @@ class TeamTest extends TestCase
        
     }
     /** @test */
-    public function un_equipo_puede_agregar_multiples_usuarios_a_la_vez()
+    public function El_equipo_puede_agregar_multiples_usuarios()
     {
        $team = Team::factory()->create();
        $users = User::factory(2)->create();
@@ -60,14 +60,46 @@ class TeamTest extends TestCase
     }
 
     /** @test */
-    public function un_equipo_puede_excluir_un_usuario()
+    public function El_equipo_puede_desasociar_a_un_usuario()
     {
         # code...
+        $team = Team::factory()->create();
+
+        $user = User::factory(5)->create();
+
+        $team->add($user);
+
+        $this->assertEquals(5, $team->count());
+
+        $user = User::get()->first();
+
+        $team->dissociate_members($user);
+
+        $user = User::get();
+
+        $this->assertEquals(5, $user->count());
     }
 
     /** @test */
-    public function un_equipo_puede_excluir_todos_los_usuarios_a_la_vez()
+    public function El_equipo_puede_desasociar_todos_los_usuarios()
     {
         # code...
+        $team = Team::factory()->create();
+
+        $user = User::factory(5)->create();
+
+        $team->add($user);
+
+        $this->assertEquals(5, $team->count());
+
+        $team->dissociate_members();
+
+        $this->assertEquals(0, $team->count());
+
+        $user = User::get();
+
+        $this->assertEquals(5, $user->count());
     }
+
+   
 }
