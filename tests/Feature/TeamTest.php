@@ -77,6 +77,6 @@ class TeamTest extends TestCase
 
         $team->add($users);
 
-        $this->assertEquals(0, $team->removeAll($team_id));
+        $this->assertEquals(0, $team->removeAll($team->id));
     }
 }
