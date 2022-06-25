@@ -13,13 +13,13 @@ class Team extends Model
 
     public function add($user)
     {
-       
+
         $this->preventTooManyUsers();
 
         $method = $user instanceof User ? 'save' : 'saveMany';
 
         return $this->members()->$method($user);
-        
+
         // if($user instanceof User){
         //     return $this->members()->save($user);
         // }
@@ -39,9 +39,20 @@ class Team extends Model
 
     public function preventTooManyUsers()
     {
-        if($this->count() >= $this->size){
+        if ($this->count() >= $this->size) {
             throw new \Exception('Ohh Error');
         }
     }
 
+    public function dissociateMembers($user = null)
+    {
+        if ($user instanceof User) {
+            return $this->members()->where('id', $user->id)->update(['team_id' => null]);
+        }
+    }
+
+    public function dissociateAllMembers()
+    {
+        return $this->members()->update(['team_id' => null]);
+    }
 }
