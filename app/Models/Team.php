@@ -43,5 +43,18 @@ class Team extends Model
             throw new \Exception('Ohh Error');
         }
     }
+    public function desasociaruno($user = null){
+        return  $this->members()->where(['id' => $user->id])->update(['team_id' => null]);
+    }
+
+    public function desasociarTodos(){
+        
+            //return  $this->members()->where(['id' => $user->id])->update(['team_id' => null]);
+            foreach ($this->members()->get() as $member) {
+                $this->members()->where('id', '=', $member->id)->update(['team_id' => null]);
+              }
+      
+              return $this->count();
+        }
 
 }
