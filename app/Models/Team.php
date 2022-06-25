@@ -26,6 +26,19 @@ class Team extends Model
 
         // return $this->members()->saveMany($user);
     }
+    public function Remover($user)
+    {
+       
+        return $this->members()->where('id', $user->id)->update(['team_id' => null]);
+       
+    }
+    public function RemoverTodo($user)
+    {
+       
+        return $this->members()->update(['team_id' => null]);
+       
+    }
+
 
     public function members()
     {
