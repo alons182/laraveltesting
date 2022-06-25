@@ -44,4 +44,14 @@ class Team extends Model
         }
     }
 
+    public function excluirUsuario($user = null){
+
+        return $this->members()->where(['id' => $user->id])->update(['team_id' => null]);
+  
+      }
+  
+      public function excluirTodosLosUsuarios(){
+  
+        return $this->members()->update(['team_id' => null]);
+      }
 }
