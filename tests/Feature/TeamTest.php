@@ -11,8 +11,8 @@ use Tests\TestCase;
 class TeamTest extends TestCase
 {
     use RefreshDatabase;
-    
-    
+
+
     /** @test */
     public function un_equipo_puede_agregar_usuario()
     {
@@ -24,7 +24,7 @@ class TeamTest extends TestCase
         $team->add($user2);
 
         $this->assertEquals(2, $team->count());
-       
+
     }
     /** @test */
     public function un_equipo_puede_agregar_multiples_usuarios_a_la_vez()
@@ -62,12 +62,40 @@ class TeamTest extends TestCase
     /** @test */
     public function un_equipo_puede_excluir_un_usuario()
     {
-        # code...
+        $team = Team::factory()->create();
+
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
+        $user3 = User::factory()->create();
+
+        $team->add($user);
+        $team->add($user2);
+        $team->add($user3);
+        $team->disassociateUser($user);
+        $users = User::get();
+
+        $this->assertEquals(3, $users->count());
+        $this->assertEquals(2, $team->count());
+
     }
 
     /** @test */
     public function un_equipo_puede_excluir_todos_los_usuarios_a_la_vez()
     {
-        # code...
+        $team = Team::factory()->create();
+
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
+        $user3 = User::factory()->create();
+
+        $team->add($user);
+        $team->add($user2);
+        $team->add($user3);
+        $team->disassociateAllUser();
+
+        $users = User::get();
+        $this->assertEquals(3, $users->count());
+        $this->assertEquals(0, $team->count());
+
     }
 }
