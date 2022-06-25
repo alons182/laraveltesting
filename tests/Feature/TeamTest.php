@@ -59,15 +59,33 @@ class TeamTest extends TestCase
 
     }
 
+    //CRISTHOFER RIVERA GÓMEZ B65887
+
     /** @test */
     public function un_equipo_puede_excluir_un_usuario()
     {
-        # code...
+        $team = Team::factory()->create();
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
+        $user3 = User::factory()->create();
+
+        $team->delete($user);
+        $team->delete($user2);
+        $team->delete($user3);
+
+        $this->assertEquals(0, $team->count());
+
     }
+
 
     /** @test */
     public function un_equipo_puede_excluir_todos_los_usuarios_a_la_vez()
     {
-        # code...
+        $team = Team::factory()->create();
+        $users = User::factory(4)->create();
+
+        $team->delete($users);
+ 
+        $this->assertEquals(0, $team->count());
     }
 }
