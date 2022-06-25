@@ -44,4 +44,22 @@ class Team extends Model
         }
     }
 
+    public function remove($userRemove, $teamId)
+    {
+         User::where('id', $userRemove->id)->update(['team_id' => null]);
+
+        $team = User::where('team_id', $teamId)->get();
+        return $team->count();
+
+    }
+
+    public function deletegroup ($teamId){
+
+        User::where('team_id', $teamId)->update(['team_id' => null]);
+
+        $team = User::where('team_id', $teamId)->get();
+
+        return $team->count();
+    }
+
 }
