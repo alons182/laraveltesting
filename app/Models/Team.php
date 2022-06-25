@@ -31,6 +31,7 @@ class Team extends Model
     {
         return $this->hasMany(User::class);
     }
+   
 
     public function count()
     {
@@ -43,5 +44,20 @@ class Team extends Model
             throw new \Exception('Ohh Error');
         }
     }
+    public function excluir(User $user)
+    {
+      
+       return  $user->delete();
+      
+    }
+    
+    public function excluir_todos($user)
+    {
+        $this->preventTooManyUsers();
 
+        $method = $user instanceof User ? 'delete' : 'saveM';
+
+        return $this->members()->$method($user);
+     
+    }
 }

@@ -62,12 +62,29 @@ class TeamTest extends TestCase
     /** @test */
     public function un_equipo_puede_excluir_un_usuario()
     {
-        # code...
+        $team = Team::factory()->create();
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
+    
+        $team->add($user);
+        $team->add($user2);
+    
+        $team->excluir($user);
+       
+        $this->assertEquals(1, $team->count());
     }
 
     /** @test */
     public function un_equipo_puede_excluir_todos_los_usuarios_a_la_vez()
     {
-        # code...
+        $team = Team::factory()->create();
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
+    
+        $team->add($user);
+        $team->add($user2);
+    
+        $team->excluir_todos($user);
+        $this->assertEquals(0, $team->count());
     }
 }
