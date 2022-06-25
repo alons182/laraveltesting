@@ -44,4 +44,16 @@ class Team extends Model
         }
     }
 
+    public function UserRemove($users)
+    {
+        return $this->members()->get()->find($users->id)->delete();
+
+    }
+
+    public function UserRemoveAll(){
+        return $this->members()->delete();
+
+    }
+
+
 }

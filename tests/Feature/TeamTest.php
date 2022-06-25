@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use phpDocumentor\Reflection\Types\Void_;
 use Tests\TestCase;
 
 class TeamTest extends TestCase
@@ -41,6 +42,7 @@ class TeamTest extends TestCase
     /** @test */
     public function un_equipo_tiene_un_maximo_usuarios()
     {
+
         $team = Team::factory()->create(['size' => 2]);
 
         $user = User::factory()->create();
@@ -57,17 +59,38 @@ class TeamTest extends TestCase
 
         $team->add($user3);
 
+        
+       
+
     }
 
     /** @test */
     public function un_equipo_puede_excluir_un_usuario()
     {
-        # code...
+        
+        $team = Team::factory()->create(['size' => 2]);
+        $users = User::factory(2)->create();
+
+        $team->add($users);
+       
+        $team->UserRemove($users->last());     
+
+        $this->assertEquals(1, $team->count());          
+
+
     }
 
     /** @test */
     public function un_equipo_puede_excluir_todos_los_usuarios_a_la_vez()
     {
-        # code...
+        $team = Team::factory()->create(['size' => 5]);
+
+        $users = User::factory(5)->create();
+
+        $team->add($users);
+
+        $team->UserRemoveAll();     
+
+        $this->assertEquals(0, $team->count());  
     }
 }
