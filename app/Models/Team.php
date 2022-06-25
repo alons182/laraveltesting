@@ -27,6 +27,19 @@ class Team extends Model
         // return $this->members()->saveMany($user);
     }
 
+    public function excludeUser($userOut = null){
+
+
+      return $this->members()->where(['id' => $userOut->id])->update(['team_id' => null]);
+
+    }
+
+    public function excludeAllUsers(){
+
+        return $this->members()->update(['team_id' => null]);
+    }
+
+
     public function members()
     {
         return $this->hasMany(User::class);
