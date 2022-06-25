@@ -42,6 +42,17 @@ class Team extends Model
         if($this->count() >= $this->size){
             throw new \Exception('Ohh Error');
         }
+    } 
+
+    public function excluirUsuario($user) { 
+
+        return $this->members()->where('id', $user->id)->update(['team_id' => null]);
+
+    } 
+
+    public function excluirTodosLosUsuariosDelEquipo() { 
+     
+            return $this->members()->update(['team_id' => null]);      
     }
 
 }
