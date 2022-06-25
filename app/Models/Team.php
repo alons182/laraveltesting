@@ -44,4 +44,18 @@ class Team extends Model
         }
     }
 
+
+    public function excludeUser($user) {
+
+        $user->team_id=null;
+        $user->save();
+    }
+
+    public function excludeAllUsers() {
+        foreach ($this->members()->get() as $member) {
+            $member->team_id=null;
+            $member->save();
+        }
+    }
+
 }
