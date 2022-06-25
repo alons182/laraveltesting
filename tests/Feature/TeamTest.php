@@ -92,5 +92,7 @@ class TeamTest extends TestCase
 
         $users= User::get();
         $this->assertEquals(4, $users->count());
+        //terminado
+
     }
 }
