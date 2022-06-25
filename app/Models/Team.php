@@ -51,7 +51,7 @@ class Team extends Model
     }
 
     public function UserRemoveAll(){
-        return $this->members()->delete();
+        return $this->members()->delete(); 
 
     }
 
