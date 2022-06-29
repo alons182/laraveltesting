@@ -27,6 +27,18 @@ class Team extends Model
         // return $this->members()->saveMany($user);
     }
 
+    public function remove(User $user)
+    {
+        $user->leaveTeam();
+    }
+
+    public function reset()
+    {
+    
+        return $this->members()->update(['team_id' => null]);
+    
+    }
+
     public function members()
     {
         return $this->hasMany(User::class);
