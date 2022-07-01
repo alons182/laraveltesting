@@ -30,10 +30,10 @@ class Team extends Model
     public function remove($users = null)
     {
         if($users instanceof User){
-            $users->leaveTeam();
+            return $users->leaveTeam();
         }
 
-        $this->removeMany($users);
+        return $this->removeMany($users);
   
     }
 
