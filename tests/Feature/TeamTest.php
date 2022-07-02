@@ -58,38 +58,48 @@ class TeamTest extends TestCase
         $team->add($user3);
 
     }
+ /** @test */
+ public function un_equipo_puede_excluir_un_usuario()
+ {
+     $team = Team::factory()->create(['size' => 2]);
 
-    /** @test */
-    public function un_equipo_puede_excluir_un_usuario()
-    {
-        $team = Team::factory()->create();
-        $user = User::factory()->create();
-        $user2 = User::factory()->create();
+     $users = User::factory(2)->create();
 
-        $team->add($user);
-        $team->add($user2);
+     $team->add($users);
 
-        $this->assertEquals(2, $team->count());
+     $team->remove($users[0]);
 
-        $team->removeAnUser($user);
+     $this->assertEquals(1, $team->count());
 
-        $this->assertEquals(1, $team->count());
+ }
+ /** @test */
+ public function un_equipo_puede_excluir_mas_de_un_usuario_a_la_vez()
+ {
+     $team = Team::factory()->create(['size' => 3]);
 
-    }
+     $users = User::factory(3)->create();
 
+     $team->add($users);
 
-    /** @test */
-    public function un_equipo_puede_excluir_todos_los_usuarios_a_la_vez()
-    {
-        $team = Team::factory()->create();
-       $users = User::factory(2)->create();
+     $team->remove($users->slice(0, 2));
 
-       $team->add($users);
+     $this->assertEquals(1, $team->count());
 
-       $this->assertEquals(2, $team->count());
+ }
 
-       $team->removeAllUsers($users);
+ /** @test */
+ public function un_equipo_puede_excluir_todos_los_usuarios_a_la_vez()
+ {
+     $team = Team::factory()->create(['size' => 2]);
 
-       $this->assertEquals(0, $team->count());
-    }
+     $users = User::factory(2)->create();
+
+     $team->add($users);
+
+     $team->reset();
+
+     $this->assertEquals(0, $team->count());
+
+ }
+
 }

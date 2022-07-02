@@ -27,6 +27,30 @@ class Team extends Model
         // return $this->members()->saveMany($user);
     }
 
+    public function remove($users = null)
+    {
+        if($users instanceof User){
+            return $users->leaveTeam();
+        }
+
+        return $this->removeMany($users);
+
+    }
+
+    public function removeMany($users)
+    {
+        return $this->members()
+                    ->whereIn('id', $users->pluck('id'))
+                    ->update(['team_id' => null]);
+    }
+
+    public function reset()
+    {
+
+        return $this->members()->update(['team_id' => null]);
+
+    }
+
     public function members()
     {
         return $this->hasMany(User::class);
@@ -42,21 +66,6 @@ class Team extends Model
         if($this->count() >= $this->size){
             throw new \Exception('Ohh Error');
         }
-    }
-
-    public function removeAnUser($user){
-
-
-        $method = $user instanceof User ? 'delete' : 'removeAnUser';
-        return $this->members()->$method($user);
-    }
-
-    public function removeAllUsers($users){
-        $this->preventTooManyUsers();
-
-        $method = $users instanceof User ? 'delete' : 'removeAllUsers';
-
-        return $this->members()->$method($users);
     }
 
 }
