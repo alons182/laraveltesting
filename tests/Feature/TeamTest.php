@@ -102,4 +102,17 @@ class TeamTest extends TestCase
         $this->assertEquals(0, $team->count());
 
     }
+
+    /** @test */
+    public function cuando_agrego_muchos_miembros_a_la_vez_no_deberia_exceder_el_tamano_del_equipo()
+    {
+        $team = Team::factory()->create(['size' => 2]);
+
+        $users = User::factory(3)->create();
+
+        $this->expectException('Exception');
+
+        $team->add($users);
+
+    }
 }
