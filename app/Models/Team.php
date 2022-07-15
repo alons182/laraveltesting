@@ -11,14 +11,14 @@ class Team extends Model
 
     protected $fillable = ['name'];
 
-    public function add($user)
+    public function add($users)
     {
        
-        $this->preventTooManyUsers();
+        $this->preventTooManyUsers($users);
 
-        $method = $user instanceof User ? 'save' : 'saveMany';
+        $method = $users instanceof User ? 'save' : 'saveMany';
 
-        return $this->members()->$method($user);
+        return $this->members()->$method($users);
         
         // if($user instanceof User){
         //     return $this->members()->save($user);
@@ -61,9 +61,13 @@ class Team extends Model
         return $this->members()->count();
     }
 
-    public function preventTooManyUsers()
+    public function preventTooManyUsers($users)
     {
-        if($this->count() >= $this->size){
+        $usersToAdd = $users instanceof User ? 1 : $users->count();
+        $teamUsersCount = $this->count() + $usersToAdd;
+
+
+        if($teamUsersCount >= $this->size){
             throw new \Exception('Ohh Error');
         }
     }
