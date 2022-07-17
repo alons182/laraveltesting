@@ -67,7 +67,7 @@ class Team extends Model
         $teamUsersCount = $this->count() + $usersToAdd;
 
 
-        if($teamUsersCount >= $this->size){
+        if($teamUsersCount > $this->size){
             throw new \Exception('Ohh Error');
         }
     }
