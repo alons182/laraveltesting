@@ -19,6 +19,11 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->timestamps();
         });
+
+        Schema::create('project_tag', function (Blueprint $table) {
+            $table->foreignId('tag_id');
+            $table->foreignId('project_id');
+        });
     }
 
     /**
