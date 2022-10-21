@@ -25,6 +25,10 @@ class ProjectsController extends Controller
   
         $data = request()->all();
 
+        $data = $this->validate(request(), [
+            'name' => ['required', 'unique:projects']
+        ]);
+
         Project::create([
             ...$data,
             'user_id' => auth()->user()->id

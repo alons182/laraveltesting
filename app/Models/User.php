@@ -47,4 +47,9 @@ class User extends Authenticatable
         $this->team_id = null;
         $this->save();
     }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

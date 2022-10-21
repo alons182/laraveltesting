@@ -16,8 +16,21 @@ class Project extends Model
        return '/projects/'.$this->id;
     }
 
-    public function creator()
+    // public function creator()
+    // {
+    //     return $this->belongsTo(User::class, 'user_id');
+    // }
+
+    public function tasks()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->hasMany(Task::class);
+    }
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }
