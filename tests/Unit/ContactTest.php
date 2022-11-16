@@ -23,7 +23,7 @@ class ContactTest extends TestCase
 
         $this->assertEquals('ALONSO', $contacto->getNombreMayusculas());
         $this->assertDatabaseHas('contacts', ['name' => 'alonso']);
-        dd(Contact::first());
+        
         
 
 
