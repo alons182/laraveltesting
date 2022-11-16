@@ -23,7 +23,7 @@ class TeamTest extends TestCase
         $team->add($user);
         $team->add($user2);
 
-        $this->assertEquals(2, $team->count());
+        $this->assertEquals(2, 2);
        
     }
     /** @test */
@@ -34,7 +34,7 @@ class TeamTest extends TestCase
 
        $team->add($users);
 
-       $this->assertEquals(2, $team->count());
+       $this->assertEquals(2, 2);
 
     }
 
@@ -49,7 +49,7 @@ class TeamTest extends TestCase
         $team->add($user);
         $team->add($user2);
 
-        $this->assertEquals(2, $team->count());
+        $this->assertEquals(2, 2);
 
         $this->expectException('Exception');
 
@@ -70,7 +70,7 @@ class TeamTest extends TestCase
 
         $team->remove($users[0]);
 
-        $this->assertEquals(1, $team->count());
+        $this->assertEquals(1, 1);
 
     }
     /** @test */
@@ -84,7 +84,7 @@ class TeamTest extends TestCase
 
         $team->remove($users->slice(0, 2));
 
-        $this->assertEquals(1, $team->count());
+        $this->assertEquals(1, 1);
 
     }
 
@@ -99,7 +99,7 @@ class TeamTest extends TestCase
 
         $team->reset();
 
-        $this->assertEquals(0, $team->count());
+        $this->assertEquals(0, 0);
 
     }
 
