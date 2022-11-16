@@ -10,7 +10,7 @@ class ProjectsController extends Controller
 {
     public function show(Project $project)
     {
-        $user = User::first();
+        $user = Use::first();
         auth()->login($user);
 
        $this->authorize('view', $project);

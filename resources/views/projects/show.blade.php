@@ -1,2 +1,2 @@
 Name: {{ $project->name }}
-Creator: {{ $project->creator->name }}
+{{-- Creator: {{ $project->creator->name }} --}}
